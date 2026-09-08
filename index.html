@@ -1,0 +1,1524 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="dark">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>FamFinance - Family Expense & Budget Management</title>
+  <meta name="description" content="A private, modern, and intuitive family expense and budget tracker with multi-member analytics, savings goals, and smart spending insights.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Outfit:wght@500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="css/style.css">
+  <!-- Chart.js for smooth interactive visual charts (with automatic native fallback) -->
+  <script src="https://cdn.jsdelivr.net/npm/chart.js@4.4.1/dist/chart.umd.min.js" defer></script>
+</head>
+<body>
+  <div class="app-container">
+    <!-- Sidebar Navigation -->
+    <aside class="sidebar">
+      <div class="sidebar-header">
+        <div class="brand-logo">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"></path>
+          </svg>
+        </div>
+        <div class="brand-info">
+          <h1>FamFinance</h1>
+          <span>Family Ledger</span>
+        </div>
+      </div>
+
+      <nav class="nav-menu">
+        <div class="nav-section-title">Daily Finance</div>
+        <a href="#dashboard" class="nav-item active" data-tab="dashboard">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="3" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="14" y="3" width="7" height="7" rx="1.5"></rect>
+            <rect x="14" y="14" width="7" height="7" rx="1.5"></rect>
+            <rect x="3" y="14" width="7" height="7" rx="1.5"></rect>
+          </svg>
+          Overview
+        </a>
+        <a href="#transactions" class="nav-item" data-tab="transactions">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <line x1="12" y1="1" x2="12" y2="23"></line>
+            <path d="M17 5H9.5a3.5 3.5 0 0 0 0 7h5a3.5 3.5 0 0 1 0 7H6"></path>
+          </svg>
+          Transactions
+        </a>
+        <a href="#budgets" class="nav-item" data-tab="budgets">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="12" cy="12" r="10"></circle>
+            <path d="M8 14s1.5 2 4 2 4-2 4-2"></path>
+            <line x1="9" y1="9" x2="9.01" y2="9"></line>
+            <line x1="15" y1="9" x2="15.01" y2="9"></line>
+          </svg>
+          Monthly Budgets
+        </a>
+        <a href="#goals" class="nav-item" data-tab="goals">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="12" cy="12" r="10"></circle>
+            <circle cx="12" cy="12" r="6"></circle>
+            <circle cx="12" cy="12" r="2"></circle>
+          </svg>
+          Savings Goals
+        </a>
+
+        <div class="nav-section-title">Wealth & Assets</div>
+        <a href="#accounts" class="nav-item" data-tab="accounts">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+            <line x1="2" y1="10" x2="22" y2="10"></line>
+          </svg>
+          Bank Accounts
+        </a>
+        <a href="#properties" class="nav-item" data-tab="properties">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M3 9l9-7 9 7v11a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2z"></path>
+            <polyline points="9 22 9 12 15 12 15 22"></polyline>
+          </svg>
+          Properties & Land
+        </a>
+        <a href="#rentals" class="nav-item" data-tab="rentals">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path>
+            <polyline points="14 2 14 8 20 8"></polyline>
+            <line x1="16" y1="13" x2="8" y2="13"></line>
+            <line x1="16" y1="17" x2="8" y2="17"></line>
+          </svg>
+          Rental Income
+        </a>
+        <a href="#emis" class="nav-item" data-tab="emis">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <rect x="1" y="4" width="22" height="16" rx="2" ry="2"></rect>
+            <line x1="1" y1="10" x2="23" y2="10"></line>
+          </svg>
+          Loans & EMIs
+        </a>
+        <a href="#policies" class="nav-item" data-tab="policies">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"></path>
+          </svg>
+          Insurance Policies
+        </a>
+        <a href="#investments" class="nav-item" data-tab="investments">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+            <polyline points="16 7 22 7 22 13"></polyline>
+          </svg>
+          Investments
+        </a>
+
+        <div class="nav-section-title">Administration</div>
+        <a href="#members" class="nav-item" data-tab="members">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+            <circle cx="9" cy="7" r="4"></circle>
+            <path d="M23 21v-2a4 4 0 0 0-3-3.87"></path>
+            <path d="M16 3.13a4 4 0 0 1 0 7.75"></path>
+          </svg>
+          Family Members
+        </a>
+        <a href="#settings" class="nav-item" data-tab="settings">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          Settings
+        </a>
+      </nav>
+
+      <div class="sidebar-footer">
+        <div class="family-badge">
+          <div class="family-avatars-preview" id="sidebarAvatarsPreview">
+            <!-- Populated dynamically -->
+          </div>
+          <div class="family-badge-text" id="sidebarFamilyName">CH</div>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Main Application Wrapper -->
+    <main class="main-wrapper">
+      <!-- Top Sticky Header -->
+      <header class="top-header">
+        <div class="header-left">
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Sidebar Menu">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 24px; height: 24px;">
+              <line x1="3" y1="12" x2="21" y2="12"></line>
+              <line x1="3" y1="6" x2="21" y2="6"></line>
+              <line x1="3" y1="18" x2="21" y2="18"></line>
+            </svg>
+          </button>
+          <h2 class="page-title" id="pageTitle">Family Overview</h2>
+          <span class="current-month-badge" id="currentMonthBadge">September 2026</span>
+        </div>
+
+        <div class="header-right">
+          <!-- Filter by family member -->
+          <div class="member-filter-wrapper" title="Filter views by family member">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"></path>
+              <circle cx="12" cy="7" r="4"></circle>
+            </svg>
+            <select class="member-filter-select" id="globalMemberFilter">
+              <option value="all">Entire Family</option>
+            </select>
+          </div>
+
+          <!-- Dark/Light Mode Switcher -->
+          <button class="icon-btn" id="themeToggleBtn" title="Toggle Dark/Light Mode" aria-label="Toggle Theme">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+              <circle cx="12" cy="12" r="5"></circle>
+              <line x1="12" y1="1" x2="12" y2="3"></line>
+              <line x1="12" y1="21" x2="12" y2="23"></line>
+              <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+              <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+              <line x1="1" y1="12" x2="3" y2="12"></line>
+              <line x1="21" y1="12" x2="23" y2="12"></line>
+              <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+              <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+            </svg>
+          </button>
+
+          <!-- Quick Add Button -->
+          <button class="btn btn-primary" id="quickAddBtn" title="Add Transaction (Press N)">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5">
+              <line x1="12" y1="5" x2="12" y2="19"></line>
+              <line x1="5" y1="12" x2="19" y2="12"></line>
+            </svg>
+            <span>+ Add Transaction</span>
+          </button>
+        </div>
+      </header>
+
+      <!-- Main Content Body -->
+      <section class="content-body">
+        
+        <!-- TAB 1: OVERVIEW / DASHBOARD -->
+        <div class="tab-panel active" id="tab-dashboard">
+          <!-- Portfolio & Net Worth Banner -->
+          <div class="networth-banner">
+            <div class="networth-primary">
+              <span class="networth-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;">
+                  <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"></polygon>
+                </svg>
+                Family Estimated Net Worth
+              </span>
+              <div class="networth-value" id="netWorthDisplay">₹0</div>
+              <span style="font-size: 0.78rem; color: var(--text-muted);">Real Estate + Liquid Bank Assets + Investments - Active Loan Liabilities</span>
+            </div>
+            <div class="networth-stats-strip">
+              <div class="networth-stat-pill">
+                <span>Property Valuation</span>
+                <strong id="bannerPropertyValue">₹0</strong>
+              </div>
+              <div class="networth-stat-pill">
+                <span>Bank Balances</span>
+                <strong id="bannerLiquidCash" style="color: var(--income);">₹0</strong>
+              </div>
+              <div class="networth-stat-pill">
+                <span>Investments & Stocks</span>
+                <strong id="bannerInvestments" style="color: #10b981;">₹0</strong>
+              </div>
+              <div class="networth-stat-pill">
+                <span>Active Loan Debt</span>
+                <strong id="bannerLiabilities" style="color: var(--expense);">₹0</strong>
+              </div>
+              <div class="networth-stat-pill">
+                <span>Passive Rental Income</span>
+                <strong id="bannerMonthlyRent" style="color: var(--primary);">₹0/mo</strong>
+              </div>
+            </div>
+          </div>
+
+          <!-- Monthly Overview Toolbar & Period Selector -->
+          <div class="overview-period-toolbar">
+            <div class="period-headline">
+              <div class="period-icon">📅</div>
+              <div>
+                <h3 class="period-title" id="overviewPeriodTitle">Monthly Overview</h3>
+                <span class="period-caption" id="overviewPeriodCaption">Showing financial analytics for September 2026</span>
+              </div>
+            </div>
+
+            <div class="period-controls">
+              <!-- Month Dropdown -->
+              <div class="period-select-wrapper">
+                <label for="overviewMonthSelect" class="period-select-label">Month</label>
+                <select class="period-select" id="overviewMonthSelect">
+                  <option value="all">All Months</option>
+                  <option value="01">January</option>
+                  <option value="02">February</option>
+                  <option value="03">March</option>
+                  <option value="04">April</option>
+                  <option value="05">May</option>
+                  <option value="06">June</option>
+                  <option value="07">July</option>
+                  <option value="08">August</option>
+                  <option value="09" selected>September</option>
+                  <option value="10">October</option>
+                  <option value="11">November</option>
+                  <option value="12">December</option>
+                </select>
+              </div>
+
+              <!-- Year Dropdown -->
+              <div class="period-select-wrapper">
+                <label for="overviewYearSelect" class="period-select-label">Year</label>
+                <select class="period-select" id="overviewYearSelect">
+                  <option value="all">All Years</option>
+                  <option value="2027">2027</option>
+                  <option value="2026" selected>2026</option>
+                  <option value="2025">2025</option>
+                  <option value="2024">2024</option>
+                </select>
+              </div>
+
+              <!-- Quick Jump Current Month Button -->
+              <button class="btn btn-secondary btn-sm period-btn" id="overviewCurrentMonthBtn" title="Jump to current month">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px;">
+                  <polyline points="23 4 23 10 17 10"></polyline>
+                  <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                </svg>
+                <span>Current Month</span>
+              </button>
+            </div>
+          </div>
+
+          <!-- KPI Summary Cards -->
+          <div class="kpi-grid">
+            <div class="kpi-card kpi-balance">
+              <div class="kpi-header">
+                <span class="kpi-label">Net Balance</span>
+                <div class="kpi-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <rect x="2" y="5" width="20" height="14" rx="2"></rect>
+                    <line x1="2" y1="10" x2="22" y2="10"></line>
+                  </svg>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpiTotalBalance">₹0.00</div>
+              <div class="kpi-subtext">
+                <span class="kpi-trend-pill trend-positive">Net Liquid</span>
+                <span>Cumulative surplus</span>
+              </div>
+            </div>
+
+            <div class="kpi-card kpi-income">
+              <div class="kpi-header">
+                <span class="kpi-label">Family Income</span>
+                <div class="kpi-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="23 6 13.5 15.5 8.5 10.5 1 18"></polyline>
+                    <polyline points="17 6 23 6 23 12"></polyline>
+                  </svg>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpiMonthlyIncome">₹0.00</div>
+              <div class="kpi-subtext">
+                <span>All sources combined</span>
+              </div>
+            </div>
+
+            <div class="kpi-card kpi-expense">
+              <div class="kpi-header">
+                <span class="kpi-label">Family Expenses</span>
+                <div class="kpi-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <polyline points="23 18 13.5 8.5 8.5 13.5 1 6"></polyline>
+                    <polyline points="17 18 23 18 23 12"></polyline>
+                  </svg>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpiMonthlyExpense">₹0.00</div>
+              <div class="kpi-subtext">
+                <span>Total spent this period</span>
+              </div>
+            </div>
+
+            <div class="kpi-card kpi-savings">
+              <div class="kpi-header">
+                <span class="kpi-label">Savings Rate</span>
+                <div class="kpi-icon">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <path d="m4.93 4.93 4.24 4.24"></path>
+                    <path d="m14.83 9.17 4.24-4.24"></path>
+                    <path d="m14.83 14.83 4.24 4.24"></path>
+                    <path d="m9.17 14.83-4.24 4.24"></path>
+                    <circle cx="12" cy="12" r="4"></circle>
+                  </svg>
+                </div>
+              </div>
+              <div class="kpi-value" id="kpiSavingsRate">0%</div>
+              <div class="kpi-subtext">
+                <span>Of total income saved</span>
+              </div>
+            </div>
+          </div>
+
+          <!-- Charts Grid -->
+          <div class="charts-grid">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;">
+                    <line x1="18" y1="20" x2="18" y2="10"></line>
+                    <line x1="12" y1="20" x2="12" y2="4"></line>
+                    <line x1="6" y1="20" x2="6" y2="14"></line>
+                  </svg>
+                  Income vs Expenses (6-Month Trend)
+                </h3>
+              </div>
+              <div class="chart-container">
+                <canvas id="trendChart"></canvas>
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;">
+                    <path d="M21.21 15.89A10 10 0 1 1 8 2.83"></path>
+                    <path d="M22 12A10 10 0 0 0 12 2v10z"></path>
+                  </svg>
+                  Spending by Category
+                </h3>
+              </div>
+              <div class="chart-container">
+                <canvas id="categoryChart"></canvas>
+              </div>
+            </div>
+          </div>
+
+          <!-- Subgrid: Budgets Status & Member Spending Breakdown -->
+          <div class="dashboard-subgrid">
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;">
+                    <circle cx="12" cy="12" r="10"></circle>
+                    <polyline points="12 6 12 12 16 14"></polyline>
+                  </svg>
+                  Category Budget Health
+                </h3>
+                <a href="#budgets" class="btn btn-outline btn-sm" onclick="window.famApp.switchTab('budgets'); return false;">Manage</a>
+              </div>
+              <div class="progress-list" id="dashboardBudgetsList">
+                <!-- Loaded dynamically -->
+              </div>
+            </div>
+
+            <div class="card">
+              <div class="card-header">
+                <h3 class="card-title">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;">
+                    <path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"></path>
+                    <circle cx="9" cy="7" r="4"></circle>
+                  </svg>
+                  Spending Share by Member
+                </h3>
+                <a href="#members" class="btn btn-outline btn-sm" onclick="window.famApp.switchTab('members'); return false;">Members</a>
+              </div>
+              <div class="member-spending-list" id="dashboardMemberBreakdown">
+                <!-- Loaded dynamically -->
+              </div>
+            </div>
+          </div>
+
+          <!-- Recent Transactions Preview -->
+          <div class="card">
+            <div class="card-header">
+              <h3 class="card-title">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 18px; height: 18px;">
+                  <line x1="8" y1="6" x2="21" y2="6"></line>
+                  <line x1="8" y1="12" x2="21" y2="12"></line>
+                  <line x1="8" y1="18" x2="21" y2="18"></line>
+                  <line x1="3" y1="6" x2="3.01" y2="6"></line>
+                  <line x1="3" y1="12" x2="3.01" y2="12"></line>
+                  <line x1="3" y1="18" x2="3.01" y2="18"></line>
+                </svg>
+                Recent Activity
+              </h3>
+              <a href="#transactions" class="btn btn-secondary btn-sm" onclick="window.famApp.switchTab('transactions'); return false;">View All Transactions</a>
+            </div>
+            <div class="table-responsive">
+              <table class="data-table">
+                <thead>
+                  <tr>
+                    <th>Item & Notes</th>
+                    <th>Member</th>
+                    <th>Date</th>
+                    <th>Type</th>
+                    <th style="text-align: right;">Amount</th>
+                  </tr>
+                </thead>
+                <tbody id="dashboardRecentTxTable">
+                  <!-- Loaded dynamically -->
+                </tbody>
+              </table>
+            </div>
+          </div>
+        </div>
+
+        <!-- TAB 2: TRANSACTIONS VIEW -->
+        <div class="tab-panel" id="tab-transactions">
+          <div class="section-header-bar">
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 700;">Transaction History</h3>
+              <p style="font-size: 0.84rem; color: var(--text-secondary);">Manage, filter, and review family income and expense logs.</p>
+            </div>
+            <button class="btn btn-primary" onclick="window.famApp.openTxModal()">+ Add New</button>
+          </div>
+
+          <!-- Filters Bar -->
+          <div class="filters-bar">
+            <div class="search-box">
+              <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+                <circle cx="11" cy="11" r="8"></circle>
+                <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+              </svg>
+              <input type="text" id="txSearchInput" placeholder="Search by title, notes or category...">
+            </div>
+
+            <select class="filter-select" id="txTypeFilter">
+              <option value="all">All Types</option>
+              <option value="expense">Expenses Only</option>
+              <option value="income">Income Only</option>
+            </select>
+
+            <select class="filter-select" id="txCategoryFilter">
+              <option value="all">All Categories</option>
+              <option value="Groceries">🛒 Groceries</option>
+              <option value="Housing & Rent">🏠 Housing & Rent</option>
+              <option value="Utilities & Bills">💡 Utilities & Bills</option>
+              <option value="Dining & Takeout">🍽️ Dining & Takeout</option>
+              <option value="Transportation">🚗 Transportation</option>
+              <option value="Healthcare & Medical">💊 Healthcare</option>
+              <option value="Education & Kids">📚 Education</option>
+              <option value="Entertainment & Fun">🎬 Entertainment</option>
+              <option value="Shopping & Apparel">🛍️ Shopping</option>
+              <option value="Salary & Earnings">💼 Salary</option>
+              <option value="Investments & Returns">📈 Investments</option>
+              <option value="Miscellaneous">📦 Miscellaneous</option>
+            </select>
+
+            <select class="filter-select" id="txMemberFilter">
+              <option value="all">All Members</option>
+              <!-- Loaded dynamically -->
+            </select>
+          </div>
+
+          <!-- Full Table -->
+          <div class="table-responsive">
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>Description</th>
+                  <th>Category</th>
+                  <th>Spender</th>
+                  <th>Payment Method</th>
+                  <th>Date</th>
+                  <th>Amount</th>
+                  <th style="text-align: right;">Actions</th>
+                </tr>
+              </thead>
+              <tbody id="transactionsTableBody">
+                <!-- Loaded dynamically -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+
+        <!-- TAB 3: BUDGETS VIEW -->
+        <div class="tab-panel" id="tab-budgets">
+          <div class="section-header-bar">
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 700;">Monthly Category Budgets</h3>
+              <p style="font-size: 0.84rem; color: var(--text-secondary);">Set monthly limits to keep family spending within desired thresholds.</p>
+            </div>
+            <button class="btn btn-primary" id="openAddBudgetBtn">+ Set Category Budget</button>
+          </div>
+
+          <div class="budget-cards-grid" id="budgetsCardsGrid">
+            <!-- Loaded dynamically -->
+          </div>
+        </div>
+
+        <!-- TAB 4: SAVINGS GOALS VIEW -->
+        <div class="tab-panel" id="tab-goals">
+          <div class="section-header-bar">
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 700;">Family Savings Goals</h3>
+              <p style="font-size: 0.84rem; color: var(--text-secondary);">Pool resources together for family dreams, emergencies, and adventures.</p>
+            </div>
+            <button class="btn btn-primary" id="openAddGoalBtn">+ New Goal</button>
+          </div>
+
+          <div class="goals-grid" id="goalsCardsGrid">
+            <!-- Loaded dynamically -->
+          </div>
+        </div>
+
+        <!-- TAB: BANK ACCOUNTS VIEW -->
+        <div class="tab-panel" id="tab-accounts">
+          <div class="section-header-bar">
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 700;">Family Bank Accounts</h3>
+              <p style="font-size: 0.84rem; color: var(--text-secondary);">Monitor liquid cash balances, savings, salary accounts, and fixed deposits.</p>
+            </div>
+            <button class="btn btn-primary" id="openAddAccountBtn">+ Add Account</button>
+          </div>
+          <div class="asset-cards-grid" id="bankAccountsCardsGrid">
+            <!-- Loaded dynamically -->
+          </div>
+        </div>
+
+        <!-- TAB: PROPERTIES & LAND VIEW -->
+        <div class="tab-panel" id="tab-properties">
+          <div class="section-header-bar">
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 700;">Properties & Land Registry</h3>
+              <p style="font-size: 0.84rem; color: var(--text-secondary);">Track real estate holdings, agricultural lands, plots, survey numbers, and market appreciation.</p>
+            </div>
+            <button class="btn btn-primary" id="openAddPropertyBtn">+ Add Property / Land</button>
+          </div>
+          <div class="asset-cards-grid" id="propertiesCardsGrid">
+            <!-- Loaded dynamically -->
+          </div>
+        </div>
+
+        <!-- TAB: RENTAL PROPERTIES VIEW -->
+        <div class="tab-panel" id="tab-rentals">
+          <div class="section-header-bar">
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 700;">Rental Properties Owned</h3>
+              <p style="font-size: 0.84rem; color: var(--text-secondary);">Manage monthly rental income, tenant agreements, deposits held, and collection status.</p>
+            </div>
+            <button class="btn btn-primary" id="openAddRentalBtn">+ Add Rental Unit</button>
+          </div>
+          <div class="asset-cards-grid" id="rentalsCardsGrid">
+            <!-- Loaded dynamically -->
+          </div>
+        </div>
+
+        <!-- TAB: LOANS & EMIS VIEW -->
+        <div class="tab-panel" id="tab-emis">
+          <div class="section-header-bar">
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 700;">Active Loans & EMIs</h3>
+              <p style="font-size: 0.84rem; color: var(--text-secondary);">Track active home loans, car loans, interest rates, and monthly debt outflow commitments.</p>
+            </div>
+            <button class="btn btn-primary" id="openAddEmiBtn">+ Add Loan / EMI</button>
+          </div>
+          <div class="asset-cards-grid" id="emisCardsGrid">
+            <!-- Loaded dynamically -->
+          </div>
+        </div>
+
+        <!-- TAB: POLICIES & INSURANCE VIEW -->
+        <div class="tab-panel" id="tab-policies">
+          <div class="section-header-bar">
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 700;">Family Insurance Policies</h3>
+              <p style="font-size: 0.84rem; color: var(--text-secondary);">Keep track of term life, health, vehicle, and child education policies and renewal dates.</p>
+            </div>
+            <button class="btn btn-primary" id="openAddPolicyBtn">+ Add Policy</button>
+          </div>
+          <div class="asset-cards-grid" id="policiesCardsGrid">
+            <!-- Loaded dynamically -->
+          </div>
+        </div>
+
+        <!-- TAB: INVESTMENTS VIEW (MUTUAL FUNDS, STOCKS, ETFS & GOLD) -->
+        <div class="tab-panel" id="tab-investments">
+          <div class="section-header-bar">
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 700;">Family Investment Portfolio</h3>
+              <p style="font-size: 0.84rem; color: var(--text-secondary);">Manage Mutual Funds (SIPs & lump sum), Stocks/Equity, Index ETFs, and Sovereign Gold Bonds with live profit/loss tracking.</p>
+            </div>
+            <button class="btn btn-primary" id="openAddInvestmentBtn">+ Add Investment</button>
+          </div>
+
+          <!-- Investment Portfolio Stats Strip -->
+          <div class="inv-stat-strip">
+            <div class="inv-stat-card">
+              <span class="inv-stat-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px; color: #10b981;">
+                  <polyline points="22 7 13.5 15.5 8.5 10.5 2 17"></polyline>
+                  <polyline points="16 7 22 7 22 13"></polyline>
+                </svg>
+                Current Valuation
+              </span>
+              <div class="inv-stat-value" id="invStatCurrentValue" style="color: #10b981;">₹0</div>
+              <span class="inv-stat-sub">Across all family holdings</span>
+            </div>
+
+            <div class="inv-stat-card">
+              <span class="inv-stat-label">Total Capital Invested</span>
+              <div class="inv-stat-value" id="invStatInvestedCost">₹0</div>
+              <span class="inv-stat-sub">Principal purchase cost</span>
+            </div>
+
+            <div class="inv-stat-card">
+              <span class="inv-stat-label">Unrealized Gains / Returns</span>
+              <div class="inv-stat-value" id="invStatTotalGain" style="color: #10b981;">₹0</div>
+              <span class="inv-stat-sub" id="invStatGainPercent">+0% overall return</span>
+            </div>
+
+            <div class="inv-stat-card">
+              <span class="inv-stat-label">
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 14px; height: 14px; color: var(--primary);">
+                  <polyline points="23 4 23 10 17 10"></polyline>
+                  <path d="M20.49 15a9 9 0 1 1-2.12-9.36L23 10"></path>
+                </svg>
+                Monthly SIP Commitments
+              </span>
+              <div class="inv-stat-value" id="invStatMonthlySip" style="color: var(--primary);">₹0</div>
+              <span class="inv-stat-sub">Systematic recurring investments</span>
+            </div>
+          </div>
+
+          <!-- Asset Filter Pills -->
+          <div class="inv-filter-bar">
+            <button class="inv-filter-btn active" data-inv-filter="all">
+              <span>🌟 All Assets</span>
+            </button>
+            <button class="inv-filter-btn" data-inv-filter="Mutual Fund">
+              <span>📈 Mutual Funds</span>
+            </button>
+            <button class="inv-filter-btn" data-inv-filter="Stock / Equity">
+              <span>📊 Stocks & Equity</span>
+            </button>
+            <button class="inv-filter-btn" data-inv-filter="ETF / Index Fund">
+              <span>🌐 Index ETFs</span>
+            </button>
+            <button class="inv-filter-btn" data-inv-filter="SGB / Gold">
+              <span>🪙 SGB & Gold</span>
+            </button>
+          </div>
+
+          <!-- Cards Grid -->
+          <div class="asset-cards-grid" id="investmentsCardsGrid">
+            <!-- Loaded dynamically -->
+          </div>
+        </div>
+
+        <!-- TAB 5: MEMBERS VIEW -->
+        <div class="tab-panel" id="tab-members">
+          <div class="section-header-bar">
+            <div>
+              <h3 style="font-size: 1.25rem; font-weight: 700;">Family Members</h3>
+              <p style="font-size: 0.84rem; color: var(--text-secondary);">Manage family profiles, customize avatar themes, and monitor contributions.</p>
+            </div>
+            <button class="btn btn-primary" id="openAddMemberBtn">+ Add Member</button>
+          </div>
+
+          <div class="members-grid" id="membersCardsGrid">
+            <!-- Loaded dynamically -->
+          </div>
+        </div>
+
+        <!-- TAB 6: SETTINGS VIEW -->
+        <div class="tab-panel" id="tab-settings">
+          <div class="settings-section">
+            <!-- General Settings -->
+            <div class="settings-card">
+              <h3>Family Profile & Preferences</h3>
+              <p>Customize your family identity, display currency, and appearance.</p>
+
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <span class="settings-row-label">Family Name</span>
+                  <span class="settings-row-desc">Displayed on headers and exported reports</span>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                  <input type="text" class="form-control" id="settingsFamilyName" style="width: 220px;" placeholder="e.g. CH">
+                  <button class="btn btn-secondary btn-sm" id="saveFamilyNameBtn">Save</button>
+                </div>
+              </div>
+
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <span class="settings-row-label">Currency Symbol</span>
+                  <span class="settings-row-desc">Choose the primary currency symbol for all figures</span>
+                </div>
+                <select class="form-control" id="settingsCurrencySelect" style="width: 140px;">
+                  <option value="₹" selected>₹ (INR - Rupee)</option>
+                  <option value="$">$ (USD / CAD / AUD)</option>
+                  <option value="€">€ (EUR - Euro)</option>
+                  <option value="£">£ (GBP - Pound)</option>
+                  <option value="¥">¥ (JPY / CNY)</option>
+                </select>
+              </div>
+            </div>
+
+            <!-- Data Export & Portability -->
+            <div class="settings-card">
+              <h3>Data Portability & Backup</h3>
+              <p>Your data stays completely private on this device. Create backups or export records to spreadsheets anytime.</p>
+
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <span class="settings-row-label">Export to Spreadsheet (CSV)</span>
+                  <span class="settings-row-desc">Download all transactions as a CSV file compatible with Microsoft Excel and Google Sheets.</span>
+                </div>
+                <button class="btn btn-secondary" id="exportCsvBtn">
+                  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" style="width: 16px; height: 16px;">
+                    <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"></path>
+                    <polyline points="7 10 12 15 17 10"></polyline>
+                    <line x1="12" y1="15" x2="12" y2="3"></line>
+                  </svg>
+                  Export CSV
+                </button>
+              </div>
+
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <span class="settings-row-label">Full Backup (JSON)</span>
+                  <span class="settings-row-desc">Create a complete snapshot of all members, budgets, savings goals, and transactions.</span>
+                </div>
+                <div style="display: flex; gap: 8px;">
+                  <button class="btn btn-secondary" id="exportJsonBtn">Export JSON</button>
+                  <button class="btn btn-outline" id="importJsonBtn">Import Backup</button>
+                  <input type="file" id="importJsonInput" accept=".json" style="display: none;">
+                </div>
+              </div>
+            </div>
+
+            <!-- Reset & Sample Data -->
+            <div class="settings-card">
+              <h3>Maintenance & Demo Data</h3>
+              <p>Useful for exploring features or starting completely fresh.</p>
+
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <span class="settings-row-label">Load Sample Demo Data</span>
+                  <span class="settings-row-desc">Populate the app with realistic family expenses, budgets, and savings goals.</span>
+                </div>
+                <button class="btn btn-outline btn-sm" id="loadDemoDataBtn">Load Sample Data</button>
+              </div>
+
+              <div class="settings-row">
+                <div class="settings-row-info">
+                  <span class="settings-row-label" style="color: var(--expense);">Clear All Records</span>
+                  <span class="settings-row-desc">Permanently erase all transactions and reset data.</span>
+                </div>
+                <button class="btn btn-danger btn-sm" id="clearAllDataBtn">Clear Everything</button>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      </section>
+    </main>
+  </div>
+
+  <!-- ==================== MODALS ==================== -->
+
+  <!-- Add / Edit Transaction Modal -->
+  <div class="modal-overlay" id="txModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="txModalTitle">Add Transaction</h3>
+        <button class="icon-btn btn-sm" data-close-modal title="Close (Esc)">✕</button>
+      </div>
+      <form id="txForm">
+        <div class="modal-body">
+          <!-- Type Toggle -->
+          <div class="type-toggle-group">
+            <button type="button" class="type-toggle-btn active expense-btn" id="typeExpenseBtn">💸 Expense</button>
+            <button type="button" class="type-toggle-btn income-btn" id="typeIncomeBtn">💰 Income</button>
+          </div>
+          <input type="hidden" id="txType" value="expense">
+
+          <div class="form-group">
+            <label class="form-label" for="txTitle">Title / Description *</label>
+            <input type="text" class="form-control" id="txTitle" placeholder="e.g. Weekly Groceries, Electricity Bill" required autofocus>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="txAmount">Amount *</label>
+              <input type="number" step="0.01" min="0.01" class="form-control" id="txAmount" placeholder="0.00" required>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="txDate">Date *</label>
+              <input type="date" class="form-control" id="txDate" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="txCategory">Category *</label>
+              <select class="form-control" id="txCategory" required>
+                <!-- Filled dynamically -->
+              </select>
+            </div>
+
+            <div class="form-group">
+              <label class="form-label" for="txMember">Family Member *</label>
+              <select class="form-control" id="txMember" required>
+                <!-- Filled dynamically -->
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="txPaymentMethod">Payment Method</label>
+            <select class="form-control" id="txPaymentMethod">
+              <!-- Filled dynamically -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="txNotes">Notes & Receipt details</label>
+            <textarea class="form-control" id="txNotes" rows="2" placeholder="Add store details, tags, or extra context..."></textarea>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary" id="saveTxBtn">Save Transaction</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Set Budget Modal -->
+  <div class="modal-overlay" id="budgetModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">Set Monthly Budget</h3>
+        <button class="icon-btn btn-sm" data-close-modal>✕</button>
+      </div>
+      <form id="budgetForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="budgetCategorySelect">Expense Category *</label>
+            <select class="form-control" id="budgetCategorySelect" required>
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="budgetAmountInput">Monthly Spending Limit *</label>
+            <input type="number" step="10" min="1" class="form-control" id="budgetAmountInput" placeholder="e.g. 500" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Budget</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Savings Goal Modal -->
+  <div class="modal-overlay" id="goalModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">New Savings Goal</h3>
+        <button class="icon-btn btn-sm" data-close-modal>✕</button>
+      </div>
+      <form id="goalForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="goalNameInput">Goal Name *</label>
+            <input type="text" class="form-control" id="goalNameInput" placeholder="e.g. Summer Vacation, New Car" required>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="goalTargetInput">Target Amount *</label>
+              <input type="number" step="10" min="1" class="form-control" id="goalTargetInput" placeholder="5000" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="goalCurrentInput">Initial Amount Saved</label>
+              <input type="number" step="10" min="0" class="form-control" id="goalCurrentInput" placeholder="0">
+            </div>
+          </div>
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="goalDateInput">Target Date (Optional)</label>
+              <input type="date" class="form-control" id="goalDateInput">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="goalIconInput">Icon / Emoji</label>
+              <input type="text" class="form-control" id="goalIconInput" placeholder="🏖️, 🚗, 🛡️, 🎓" maxlength="4">
+            </div>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary">Create Goal</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Deposit To Goal Modal -->
+  <div class="modal-overlay" id="depositModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">Contribute to Goal</h3>
+        <button class="icon-btn btn-sm" data-close-modal>✕</button>
+      </div>
+      <form id="depositForm">
+        <input type="hidden" id="depositGoalId">
+        <div class="modal-body">
+          <p style="font-size: 0.9rem; color: var(--text-secondary);">
+            Add savings deposit to: <strong id="depositGoalName" style="color: var(--text-primary);"></strong>
+          </p>
+          <div class="form-group">
+            <label class="form-label" for="depositAmountInput">Deposit Amount *</label>
+            <input type="number" step="10" min="1" class="form-control" id="depositAmountInput" placeholder="e.g. 100" required autofocus>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary">Add Deposit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add Member Modal -->
+  <div class="modal-overlay" id="memberModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title">Add Family Member</h3>
+        <button class="icon-btn btn-sm" data-close-modal>✕</button>
+      </div>
+      <form id="memberForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="memberNameInput">Member Name *</label>
+            <input type="text" class="form-control" id="memberNameInput" placeholder="e.g. Lucas, Emma" required autofocus>
+          </div>
+          <div class="form-group">
+            <label class="form-label" for="memberRoleInput">Family Role</label>
+            <input type="text" class="form-control" id="memberRoleInput" placeholder="e.g. Parent, Teenager, Child, Relative">
+          </div>
+          <div class="form-group">
+            <label class="form-label">Theme Color</label>
+            <div class="color-picker-row">
+              <div class="color-option selected" style="background: #6366f1;" data-color="#6366f1"></div>
+              <div class="color-option" style="background: #ec4899;" data-color="#ec4899"></div>
+              <div class="color-option" style="background: #10b981;" data-color="#10b981"></div>
+              <div class="color-option" style="background: #f59e0b;" data-color="#f59e0b"></div>
+              <div class="color-option" style="background: #06b6d4;" data-color="#06b6d4"></div>
+              <div class="color-option" style="background: #8b5cf6;" data-color="#8b5cf6"></div>
+              <div class="color-option" style="background: #f43f5e;" data-color="#f43f5e"></div>
+            </div>
+            <input type="hidden" id="memberColorInput" value="#6366f1">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary">Add Member</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add / Edit Bank Account Modal -->
+  <div class="modal-overlay" id="accountModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="accountModalTitle">Add Bank Account</h3>
+        <button class="icon-btn btn-sm" data-close-modal>✕</button>
+      </div>
+      <form id="accountForm">
+        <div class="modal-body">
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="accBankNameInput">Bank Name *</label>
+              <input type="text" class="form-control" id="accBankNameInput" placeholder="e.g. HDFC Bank, SBI, ICICI" required autofocus>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="accTypeSelect">Account Type *</label>
+              <select class="form-control" id="accTypeSelect" required>
+                <option value="Savings Account">Savings Account</option>
+                <option value="Salary Account">Salary Account</option>
+                <option value="Current Account">Current Account</option>
+                <option value="Fixed Deposit (FD)">Fixed Deposit (FD)</option>
+                <option value="Recurring Deposit (RD)">Recurring Deposit (RD)</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="accLast4Input">Last 4 Digits of A/C</label>
+              <input type="text" class="form-control" id="accLast4Input" placeholder="e.g. 4821" maxlength="4">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="accBalanceInput">Current Balance (₹) *</label>
+              <input type="number" step="0.01" min="0" class="form-control" id="accBalanceInput" placeholder="50000" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="accBranchInput">Branch</label>
+              <input type="text" class="form-control" id="accBranchInput" placeholder="e.g. MG Road Branch">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="accIfscInput">IFSC Code</label>
+              <input type="text" class="form-control" id="accIfscInput" placeholder="e.g. HDFC0001234">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="accMemberSelect">Account Holder *</label>
+            <select class="form-control" id="accMemberSelect" required>
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="accNotesInput">Notes</label>
+            <input type="text" class="form-control" id="accNotesInput" placeholder="e.g. Linked for home loan auto-debit">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Account</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add / Edit Property & Land Modal -->
+  <div class="modal-overlay" id="propertyModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="propertyModalTitle">Add Property / Land</h3>
+        <button class="icon-btn btn-sm" data-close-modal>✕</button>
+      </div>
+      <form id="propertyForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="propNameInput">Property / Asset Name *</label>
+            <input type="text" class="form-control" id="propNameInput" placeholder="e.g. Greenwood 3BHK Flat, Mango Farmland" required autofocus>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="propTypeSelect">Property Type *</label>
+              <select class="form-control" id="propTypeSelect" required>
+                <option value="Residential Flat">Residential Flat / Apartment</option>
+                <option value="Independent Villa">Independent Villa / House</option>
+                <option value="Agricultural Land">Agricultural Land / Farm</option>
+                <option value="Residential Plot">Residential Layout Plot</option>
+                <option value="Commercial Unit">Commercial Office / Shop</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="propStatusSelect">Status</label>
+              <select class="form-control" id="propStatusSelect">
+                <option value="Owned">Owned (Clear Title)</option>
+                <option value="Under Construction">Under Construction</option>
+                <option value="Inherited">Ancestral / Inherited</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="propLocationInput">Location / City *</label>
+              <input type="text" class="form-control" id="propLocationInput" placeholder="e.g. Whitefield, Bengaluru" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="propSurveyInput">Survey / Plot / Khata No.</label>
+              <input type="text" class="form-control" id="propSurveyInput" placeholder="e.g. Sy. 142/3B or Khata A">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="propAreaInput">Total Area</label>
+              <input type="text" class="form-control" id="propAreaInput" placeholder="e.g. 1650 or 2.5">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="propAreaUnitSelect">Area Unit</label>
+              <select class="form-control" id="propAreaUnitSelect">
+                <option value="sq.ft">Sq. Ft.</option>
+                <option value="acres">Acres</option>
+                <option value="sq.yards">Sq. Yards</option>
+                <option value="cents">Cents</option>
+                <option value="guntas">Guntas</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="propPurchasePriceInput">Purchase Price (₹)</label>
+              <input type="number" step="1000" min="0" class="form-control" id="propPurchasePriceInput" placeholder="e.g. 6500000">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="propCurrentValInput">Current Estimated Value (₹) *</label>
+              <input type="number" step="1000" min="0" class="form-control" id="propCurrentValInput" placeholder="e.g. 9200000" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="propYearInput">Year of Purchase</label>
+              <input type="number" min="1950" max="2030" class="form-control" id="propYearInput" placeholder="e.g. 2021">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="propOwnerSelect">Registered Owner *</label>
+              <select class="form-control" id="propOwnerSelect" required>
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="propNotesInput">Notes & Registration details</label>
+            <input type="text" class="form-control" id="propNotesInput" placeholder="e.g. Registered in Sub-Registrar Office, OC obtained">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Property</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add / Edit Rental Property Modal -->
+  <div class="modal-overlay" id="rentalModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="rentalModalTitle">Add Rental Property</h3>
+        <button class="icon-btn btn-sm" data-close-modal>✕</button>
+      </div>
+      <form id="rentalForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="rentalPropertyNameInput">Rental Unit Name *</label>
+            <input type="text" class="form-control" id="rentalPropertyNameInput" placeholder="e.g. Palm Meadows 2BHK Flat" required autofocus>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="rentalAddressInput">Full Address</label>
+            <input type="text" class="form-control" id="rentalAddressInput" placeholder="e.g. Flat 201, Koramangala 4th Block">
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="rentalTenantNameInput">Tenant Name *</label>
+              <input type="text" class="form-control" id="rentalTenantNameInput" placeholder="e.g. Vikram Sharma" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="rentalTenantContactInput">Tenant Contact / Phone</label>
+              <input type="text" class="form-control" id="rentalTenantContactInput" placeholder="e.g. +91 98765 43210">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="rentalMonthlyRentInput">Monthly Rent (₹) *</label>
+              <input type="number" step="100" min="1" class="form-control" id="rentalMonthlyRentInput" placeholder="e.g. 32000" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="rentalDepositInput">Security Deposit Held (₹)</label>
+              <input type="number" step="1000" min="0" class="form-control" id="rentalDepositInput" placeholder="e.g. 150000">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="rentalLeaseStartInput">Lease Start Date</label>
+              <input type="date" class="form-control" id="rentalLeaseStartInput">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="rentalLeaseEndInput">Lease End Date</label>
+              <input type="date" class="form-control" id="rentalLeaseEndInput">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="rentalPaymentStatusSelect">Current Month Rent</label>
+              <select class="form-control" id="rentalPaymentStatusSelect">
+                <option value="Received">Received (Paid)</option>
+                <option value="Pending">Pending</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="rentalOwnerSelect">Managed By *</label>
+              <select class="form-control" id="rentalOwnerSelect" required>
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="rentalNotesInput">Agreement Notes</label>
+            <input type="text" class="form-control" id="rentalNotesInput" placeholder="e.g. 5% annual escalation, maintenance included">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Rental Unit</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add / Edit Loan & EMI Modal -->
+  <div class="modal-overlay" id="emiModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="emiModalTitle">Add Loan & EMI</h3>
+        <button class="icon-btn btn-sm" data-close-modal>✕</button>
+      </div>
+      <form id="emiForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="emiLoanNameInput">Loan / Debt Name *</label>
+            <input type="text" class="form-control" id="emiLoanNameInput" placeholder="e.g. SBI Home Loan, Car Loan" required autofocus>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="emiLoanTypeSelect">Loan Type *</label>
+              <select class="form-control" id="emiLoanTypeSelect" required>
+                <option value="Home Loan">Home Loan</option>
+                <option value="Vehicle Loan">Vehicle Loan</option>
+                <option value="Personal Loan">Personal Loan</option>
+                <option value="Education Loan">Education Loan</option>
+                <option value="Gold Loan">Gold Loan</option>
+                <option value="Business Loan">Business Loan</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="emiLenderInput">Lender / Bank *</label>
+              <input type="text" class="form-control" id="emiLenderInput" placeholder="e.g. SBI, HDFC, ICICI" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="emiMonthlyAmountInput">Monthly EMI (₹) *</label>
+              <input type="number" step="10" min="1" class="form-control" id="emiMonthlyAmountInput" placeholder="e.g. 36500" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="emiInterestRateInput">Interest Rate (%)</label>
+              <input type="number" step="0.01" min="0" class="form-control" id="emiInterestRateInput" placeholder="e.g. 8.5">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="emiOutstandingInput">Outstanding Principal (₹)</label>
+              <input type="number" step="1000" min="0" class="form-control" id="emiOutstandingInput" placeholder="e.g. 3150000">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="emiTenureMonthsInput">Remaining Tenure (Months)</label>
+              <input type="number" min="1" class="form-control" id="emiTenureMonthsInput" placeholder="e.g. 138">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="emiMemberSelect">Linked Family Member *</label>
+            <select class="form-control" id="emiMemberSelect" required>
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="emiNotesInput">Notes</label>
+            <input type="text" class="form-control" id="emiNotesInput" placeholder="e.g. Auto-debited on 5th of every month">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Loan EMI</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add / Edit Insurance Policy Modal -->
+  <div class="modal-overlay" id="policyModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="policyModalTitle">Add Insurance Policy</h3>
+        <button class="icon-btn btn-sm" data-close-modal>✕</button>
+      </div>
+      <form id="policyForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="polNameInput">Policy Name / Plan *</label>
+            <input type="text" class="form-control" id="polNameInput" placeholder="e.g. HDFC Click 2 Protect, Star Health Floater" required autofocus>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="polTypeSelect">Policy Type *</label>
+              <select class="form-control" id="polTypeSelect" required>
+                <option value="Term Life Insurance">Term Life Insurance</option>
+                <option value="Health Insurance">Health Insurance</option>
+                <option value="Vehicle Insurance">Vehicle Insurance</option>
+                <option value="Child Education Plan">Child Education Plan</option>
+                <option value="ULIP / Investment">ULIP / Endowment Plan</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="polProviderInput">Provider / Company *</label>
+              <input type="text" class="form-control" id="polProviderInput" placeholder="e.g. HDFC Life, LIC, Star Health" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="polNumberInput">Policy Number</label>
+              <input type="text" class="form-control" id="polNumberInput" placeholder="e.g. POL-9842198">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="polSumInsuredInput">Sum Insured / Total Cover (₹) *</label>
+              <input type="number" step="1000" min="0" class="form-control" id="polSumInsuredInput" placeholder="e.g. 15000000" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="polPremiumInput">Premium Amount (₹) *</label>
+              <input type="number" step="100" min="0" class="form-control" id="polPremiumInput" placeholder="e.g. 24500" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="polFrequencySelect">Premium Frequency</label>
+              <select class="form-control" id="polFrequencySelect">
+                <option value="Annual">Annual</option>
+                <option value="Half-Yearly">Half-Yearly</option>
+                <option value="Quarterly">Quarterly</option>
+                <option value="Monthly">Monthly</option>
+              </select>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="polDueDateInput">Next Due / Renewal Date</label>
+              <input type="date" class="form-control" id="polDueDateInput">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="polMaturityDateInput">Maturity Date</label>
+              <input type="date" class="form-control" id="polMaturityDateInput">
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="polMemberSelect">Insured Family Member *</label>
+            <select class="form-control" id="polMemberSelect" required>
+              <!-- Populated dynamically -->
+            </select>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="polNotesInput">Notes & Riders</label>
+            <input type="text" class="form-control" id="polNotesInput" placeholder="e.g. Accidental death and critical illness riders added">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Policy</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Add / Edit Investment Modal -->
+  <div class="modal-overlay" id="investmentModal">
+    <div class="modal-box">
+      <div class="modal-header">
+        <h3 class="modal-title" id="investmentModalTitle">Add Investment</h3>
+        <button class="icon-btn btn-sm" data-close-modal>✕</button>
+      </div>
+      <form id="investmentForm">
+        <div class="modal-body">
+          <div class="form-group">
+            <label class="form-label" for="invNameInput">Asset / Scheme / Stock Name *</label>
+            <input type="text" class="form-control" id="invNameInput" placeholder="e.g. Parag Parikh Flexi Cap Fund, TCS, Nifty 50 ETF" required autofocus>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="invTypeSelect">Asset Type *</label>
+              <select class="form-control" id="invTypeSelect" required>
+                <option value="Mutual Fund">Mutual Fund</option>
+                <option value="Stock / Equity">Stock / Equity</option>
+                <option value="ETF / Index Fund">ETF / Index Fund</option>
+                <option value="SGB / Gold">SGB / Gold</option>
+                <option value="Other Asset">Other Asset / Crypto</option>
+              </select>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="invPlatformInput">Platform / Broker</label>
+              <input type="text" class="form-control" id="invPlatformInput" placeholder="e.g. Zerodha, Groww, ICICI Direct, RBI">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="invSymbolInput">Ticker / Folio Number</label>
+              <input type="text" class="form-control" id="invSymbolInput" placeholder="e.g. TCS.NS, Folio: 89421">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="invUnitsInput">Units / Quantity</label>
+              <input type="text" class="form-control" id="invUnitsInput" placeholder="e.g. 60 Shares, 2150.4 Units">
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="invInvestedAmountInput">Invested Principal (₹) *</label>
+              <input type="number" step="1" min="0" class="form-control" id="invInvestedAmountInput" placeholder="e.g. 200000" required>
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="invCurrentValueInput">Current Market Valuation (₹) *</label>
+              <input type="number" step="1" min="0" class="form-control" id="invCurrentValueInput" placeholder="e.g. 280000" required>
+            </div>
+          </div>
+
+          <div class="form-row">
+            <div class="form-group">
+              <label class="form-label" for="invSipAmountInput">Monthly SIP Amount (₹)</label>
+              <input type="number" step="100" min="0" class="form-control" id="invSipAmountInput" placeholder="0 if lump-sum investment">
+            </div>
+            <div class="form-group">
+              <label class="form-label" for="invMemberSelect">Holding Family Member *</label>
+              <select class="form-control" id="invMemberSelect" required>
+                <!-- Populated dynamically -->
+              </select>
+            </div>
+          </div>
+
+          <div class="form-group">
+            <label class="form-label" for="invNotesInput">Investment Strategy & Notes</label>
+            <input type="text" class="form-control" id="invNotesInput" placeholder="e.g. Core retirement wealth builder, dividend growth stock">
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-close-modal>Cancel</button>
+          <button type="submit" class="btn btn-primary">Save Investment</button>
+        </div>
+      </form>
+    </div>
+  </div>
+
+  <!-- Floating Toast Notifications Container -->
+  <div class="toast-container" id="toastContainer"></div>
+
+  <!-- Application Logic -->
+  <script src="js/store.js"></script>
+  <script src="js/charts.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
